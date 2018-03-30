@@ -1,0 +1,19 @@
+# -*- coding:utf-8 -*-
+# author: Ivan Groznyj
+import requests
+
+key = "your api key"
+lang = "en"
+while True:
+    cmd = raw_input("to {0} > ".format(lang))
+    if cmd[:5] == "lang ":
+        lang = cmd[5:]
+    elif cmd == "e":
+        break
+    else:
+        a = requests.get(
+            "https://translate.yandex.net/api/v1.5/tr.json/translate?key={key}&text={text}&lang={lang}".format(key=key,
+                                                                                                               text=cmd,
+                                                                                                               lang=lang))
+        if a.status_code == 200:
+            print a.json()["text"][0]
